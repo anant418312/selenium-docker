@@ -1,6 +1,9 @@
 package com.tests;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
@@ -19,18 +22,22 @@ public class BaseTest {
         // BROWSER => chrome / firefox
         // HUB_HOST => localhost / 10.0.1.3 / hostname
 
+//    	System.setProperty("BROWSER", "firefox");
+    	
+    	
         String host = "localhost";
-        DesiredCapabilities dc;
-
+		if(System.getProperty("HUB_HOST") == null){
+			host = "localhost";	
+	   	}else {
+	   		host = System.getProperty("HUB_HOST");
+	   	}
+        MutableCapabilities dc;
+        
         if(System.getProperty("BROWSER") != null &&
                 System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
-            dc = DesiredCapabilities.firefox();
+            dc = new FirefoxOptions();
         }else{
-            dc = DesiredCapabilities.chrome();
-        }
-
-        if(System.getProperty("HUB_HOST") != null){
-            host = System.getProperty("HUB_HOST");
+            dc = new ChromeOptions();
         }
 
         String testName = ctx.getCurrentXmlTest().getName();

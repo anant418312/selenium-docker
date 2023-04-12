@@ -32,7 +32,7 @@ public class RegistrationPage {
 
     public RegistrationPage(WebDriver driver){
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 30);
+        this.wait = new WebDriverWait(driver,30);
         PageFactory.initElements(driver, this);
     }
 
